@@ -29,32 +29,13 @@ class build(_build):  # pylint: disable=invalid-name
 #
 # The output of custom commands (including failures) will be logged in the
 # worker-startup log.
-"""
 CUSTOM_COMMANDS = [
     ['apt-get', 'update'],
-    ['apt-get', '--assume-yes', 'install', 'libmysqlclient-dev'],
-    ['apt-get', '--assume-yes', 'install', 'python-dev'],
-    ['apt-get', '--assume-yes', 'install', 'libssl1.0.0'],
-    ['apt-get', '--assume-yes', 'install', 'libffi-dev'],
-    ['apt-get', '--assume-yes', 'install', 'libssl-dev'],
-    ['apt-get', '--assume-yes', 'install', 'libxml2-dev'],
-    ['apt-get', '--assume-yes', 'install', 'libxslt1-dev'],
-    ['pip', 'install', 'pyga==2.5.1'],
-    ['pip', 'install', 'MySQL-python==1.2.5'],
-    ['pip', 'install', 'fluent-logger==0.4.4'],
-    ['pip', 'install', 'phonenumbers==7.7.2'],
-    ['pip', 'install', 'python-dateutil==2.5.3'],
-    ['pip', 'install', 'google-api-python-client==1.5.4'],
-    ['pip', 'install', 'suds==0.4'],
-    ['pip', 'install', 'websocket-client==0.37.0'],
-    ['pip', 'install', 'tornado==4.4.2'],
-    ['pip', 'install', 'progressbar2==3.10.1'],
-    ['pip', 'install', 'pyOpenSSL==16.2.0'],
-    ['pip', 'install', 'futures==3.0.5'],
-    ['pip', 'install', 'requests==2.4.3'],
-    ['pip', 'install', 'SQLAlchemy==1.1.2']
+    ['apt-get', '--assume-yes', 'install', 'wget'],
+    ['apt-get', '--assume-yes', 'install', 'net-tools'],
+    ['wget', 'https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy'],
+    ['chmod+x', 'cloud_sql_proxy']
 ]
-"""
 
 class CustomCommands(setuptools.Command):
     """A setuptools Command class able to run arbitrary commands."""
@@ -84,27 +65,16 @@ class CustomCommands(setuptools.Command):
         for command in CUSTOM_COMMANDS:
             self.RunCustomCommand(command)
 
-
-# Configure the required packages and scripts to install.
-# Note that the Python Dataflow containers come with numpy already installed
-# so this dependency will not trigger anything to be installed unless a version
-# restriction is specified.
-
-
-
-REQUIRED_PACKAGES = [
-
-]
-
-setuptools.setup(
-    name='core',
-    version='0.0.1',
-    description='My primary codebase.',
-    install_requires=REQUIRED_PACKAGES,
-    packages=setuptools.find_packages(),
-    cmdclass={
-        # Command class instantiated and run during pip install scenarios.
-        'build': build,
-        'CustomCommands': CustomCommands,
+setuptools.setup(name='core',
+        version='0.0.1',
+        description='Connect through cloud_sql_proxy',
+        url='http://github.com/noah-goodrich/pycloudsqlproxy',
+        author='Noah Goodrich',
+        author_email='me@noahgoodrich.com',
+        license='Apache 2.0',
+        cmdclass={
+            # Command class instantiated and run during pip install scenarios.
+            'build': build,
+            'CustomCommands': CustomCommands,
     }
 )

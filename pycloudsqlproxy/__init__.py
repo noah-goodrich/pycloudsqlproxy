@@ -1,12 +1,8 @@
-#!/usr/bin/env python
-# vim:set expandtab ts=4 sw=4 ai ft=python:
-
 import logging
 import subprocess
 import sys
 
-
-if __name__ == '__main__':
+def connect():
     log = logging.getLogger()
     log.setLevel(logging.INFO)
     log.addHandler(logging.StreamHandler(sys.stdout))
@@ -22,6 +18,6 @@ if __name__ == '__main__':
         sys.exit(err)
     if out == '':
         log.info('>> cloud_sql_proxy starting')
-        subprocess.Popen(['cloud_sql_proxy', '-instances=icentris-ml:us-west1:ml-monat-dev=tcp:3306'])
+        subprocess.Popen(['./cloud_sql_proxy', '-instances=icentris-ml:us-west1:ml-monat-dev=tcp:3306'])
     else:
         log.info('>> cloud_sql_proxy already open')
