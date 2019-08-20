@@ -38,6 +38,7 @@ CUSTOM_COMMANDS = [
     ['chmod+x', 'cloud_sql_proxy']
 ]
 """
+CUSTOM_COMMANDS = []
 
 class CustomCommands(setuptools.Command):
     """A setuptools Command class able to run arbitrary commands."""
@@ -68,7 +69,7 @@ class CustomCommands(setuptools.Command):
             self.RunCustomCommand(command)
 
 setuptools.setup(name='pycloudsqlproxy',
-        version='0.0.1',
+        version='0.0.2',
         description='Connect through cloud_sql_proxy',
         url='http://github.com/noah-goodrich/pycloudsqlproxy',
         author='Noah Goodrich',
