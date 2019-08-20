@@ -29,6 +29,7 @@ class build(_build):  # pylint: disable=invalid-name
 #
 # The output of custom commands (including failures) will be logged in the
 # worker-startup log.
+"""
 CUSTOM_COMMANDS = [
     ['apt-get', 'update'],
     ['apt-get', '--assume-yes', 'install', 'wget'],
@@ -36,6 +37,7 @@ CUSTOM_COMMANDS = [
     ['wget', 'https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy'],
     ['chmod+x', 'cloud_sql_proxy']
 ]
+"""
 
 class CustomCommands(setuptools.Command):
     """A setuptools Command class able to run arbitrary commands."""
@@ -65,7 +67,7 @@ class CustomCommands(setuptools.Command):
         for command in CUSTOM_COMMANDS:
             self.RunCustomCommand(command)
 
-setuptools.setup(name='core',
+setuptools.setup(name='pycloudsqlproxy',
         version='0.0.1',
         description='Connect through cloud_sql_proxy',
         url='http://github.com/noah-goodrich/pycloudsqlproxy',
