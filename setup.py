@@ -69,7 +69,7 @@ class CustomCommands(setuptools.Command):
             self.RunCustomCommand(command)
 
 setuptools.setup(name='pycloudsqlproxy',
-        version='0.0.4',
+        version='0.0.5',
         description='Connect through cloud_sql_proxy',
         url='http://github.com/noah-goodrich/pycloudsqlproxy',
         author='Noah Goodrich',

@@ -1,4 +1,5 @@
 import logging
+import os
 import subprocess
 import sys
 
@@ -18,6 +19,6 @@ def connect():
         sys.exit(err)
     if out == '':
         log.info('>> cloud_sql_proxy starting')
-        subprocess.Popen(['./cloud_sql_proxy', '-instances=icentris-ml:us-west1:ml-monat-dev=tcp:3306'])
+        subprocess.Popen(['{}/cloud_sql_proxy'.format(os.path.dirname(__file__)), '-instances=icentris-ml:us-west1:ml-monat-dev=tcp:3306'])
     else:
         log.info('>> cloud_sql_proxy already open')
