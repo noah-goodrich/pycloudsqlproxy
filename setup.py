@@ -40,6 +40,7 @@ CUSTOM_COMMANDS = [
 """
 CUSTOM_COMMANDS = []
 
+
 class CustomCommands(setuptools.Command):
     """A setuptools Command class able to run arbitrary commands."""
 
@@ -68,18 +69,18 @@ class CustomCommands(setuptools.Command):
         for command in CUSTOM_COMMANDS:
             self.RunCustomCommand(command)
 
+
 setuptools.setup(name='pycloudsqlproxy',
-        version='0.0.5',
-        description='Connect through cloud_sql_proxy',
-        url='http://github.com/noah-goodrich/pycloudsqlproxy',
-        author='Noah Goodrich',
-        author_email='me@noahgoodrich.com',
-        license='Apache 2.0',
-        cmdclass={
-            # Command class instantiated and run during pip install scenarios.
-            'build': build,
-            'CustomCommands': CustomCommands,
-    },
-    include_package_data=True,
-    packages=['pycloudsqlproxy']
-)
+                 version='0.0.12',
+                 description='Connect through cloud_sql_proxy',
+                 url='http://github.com/noah-goodrich/pycloudsqlproxy',
+                 author='Noah Goodrich',
+                 author_email='me@noahgoodrich.com',
+                 license='Apache 2.0',
+                 cmdclass={
+                    # Command class instantiated and run during pip install scenarios.
+                    'build': build,
+                    'CustomCommands': CustomCommands,
+                 },
+                 include_package_data=True,
+                 packages=['pycloudsqlproxy'])
