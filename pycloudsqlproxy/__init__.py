@@ -3,12 +3,13 @@ import os
 import subprocess
 import sys
 import time
+import signal
 
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+log.addHandler(logging.StreamHandler(sys.stdout))
 
 def connect(instances):
-    log = logging.getLogger()
-    log.setLevel(logging.INFO)
-    log.addHandler(logging.StreamHandler(sys.stdout))
     log.info('>> cloud_sql_proxy called')
 
     def check_running():
@@ -24,13 +25,24 @@ def connect(instances):
         return False
 
     i = 1
+    pid = None
     while check_running() is False:
         log.info('>> cloud_sql_proxy starting')
         cmd = ['{}/cloud_sql_proxy'.format(os.path.dirname(__file__)),
                '-instances={}=tcp:3306'.format(instances)]
         print(cmd)
-        subprocess.Popen(cmd)
+        proxy = subprocess.Popen(cmd)
+        pid = proxy.pid
         time.sleep(i)
         i = i*2
 
     log.info('>> cloud_sql_proxy finished connecting')
+    return pid
+
+def disconnect(pid):
+    log.info('>> cloud_sql_proxy disconnect called')
+    if (pid != None):
+        log.info('>> cloud_sql_proxy killing pid {}'.format(pid))
+        os.kill(pid, signal.SIGKILL)
+    else:
+        log.info('>> cloud_sql_proxy no pid found to kill')
