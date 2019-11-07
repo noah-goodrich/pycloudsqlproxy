@@ -4,6 +4,8 @@ import subprocess
 import setuptools
 
 # This class handles the pip install mechanism.
+
+
 class build(_build):  # pylint: disable=invalid-name
     """A build command class that will be invoked during package install.
     The package built using the current setup.py will be staged and later
@@ -17,7 +19,7 @@ class build(_build):  # pylint: disable=invalid-name
 # Some custom command to run during setup. The command is not essential for this
 # workflow. It is used here as an example. Each command will spawn a child
 # process. Typically, these commands will include steps to install non-Python
-# packages. 
+# packages.
 #
 # First, note that there is no need to use the sudo command because the setup
 # script runs with appropriate access.
@@ -71,7 +73,7 @@ class CustomCommands(setuptools.Command):
 
 
 setuptools.setup(name='pycloudsqlproxy',
-                 version='0.0.12',
+                 version='0.0.13',
                  description='Connect through cloud_sql_proxy',
                  url='http://github.com/noah-goodrich/pycloudsqlproxy',
                  author='Noah Goodrich',
