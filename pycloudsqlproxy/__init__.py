@@ -18,7 +18,7 @@ def connect(instances):
         for line in netstat.stdout:
             txt = line.decode('utf-8')
 
-            if '3306' in txt:
+            if '3306' in txt and 'LISTEN' in txt:
                 els = txt.split()
                 log.info('>> cloud_sql_proxy listening on {}'.format(els[3]))
                 return True
