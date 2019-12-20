@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import socket
 import sys
 import time
 import signal
@@ -14,15 +15,19 @@ def connect(instances):
 
     def check_running():
         log.info('>> cloud_sql_proxy - check_running called')
-        netstat = subprocess.Popen(['netstat', '-peanut'], stdout=subprocess.PIPE)
-        for line in netstat.stdout:
-            txt = line.decode('utf-8')
 
-            if '3306' in txt and 'LISTEN' in txt:
-                els = txt.split()
-                log.info('>> cloud_sql_proxy listening on {}'.format(els[3]))
-                return True
-        return False
+        # Attempt to connect to socket. If we can, that means something is listening - jc 12/20/2019
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = s.connect_ex(('127.0.0.1', 3306))
+        s.close()
+
+        log.info('>> cloud_sql_proxy - result: %s', result)
+
+        if result == 0:
+            # We made a connection, something is listening - jc 12/20/2019
+            return True
+        else:
+            return False
 
     i = 1
     pid = None
