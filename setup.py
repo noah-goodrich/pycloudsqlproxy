@@ -35,7 +35,6 @@ class build(_build):  # pylint: disable=invalid-name
 CUSTOM_COMMANDS = [
     ['apt-get', 'update'],
     ['apt-get', '--assume-yes', 'install', 'wget'],
-    ['apt-get', '--assume-yes', 'install', 'net-tools'],
     ['wget', 'https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy'],
     ['chmod+x', 'cloud_sql_proxy']
 ]
@@ -73,7 +72,7 @@ class CustomCommands(setuptools.Command):
 
 
 setuptools.setup(name='pycloudsqlproxy',
-                 version='0.0.13',
+                 version='0.0.15',
                  description='Connect through cloud_sql_proxy',
                  url='http://github.com/noah-goodrich/pycloudsqlproxy',
                  author='Noah Goodrich',
